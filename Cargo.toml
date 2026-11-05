@@ -1,0 +1,8 @@
+[package]
+name = "sigmaos-buildbtw"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Package build orchestration service — SigmaOS component inspired by Arch Linux infrastructure."
+
+[dependencies]
