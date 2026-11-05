@@ -7,14 +7,14 @@ use std::fmt;
 
 /// Errors produced by this component. Fail-fast: errors are returned, not panicked.
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub enum Sigmaos_buildbtwError {
+pub enum BuildbtwError {
     /// The requested operation is not valid in the current state.
     InvalidState,
     /// Input failed validation.
     InvalidInput(String),
 }
 
-impl fmt::Display for Sigmaos_buildbtwError {
+impl fmt::Display for BuildbtwError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::InvalidState => write!(f, "invalid state"),
@@ -23,20 +23,20 @@ impl fmt::Display for Sigmaos_buildbtwError {
     }
 }
 
-impl std::error::Error for Sigmaos_buildbtwError {}
+impl std::error::Error for BuildbtwError {}
 
 /// Core component type. Holds configuration; performs no I/O by default.
 #[derive(Debug, Clone, Default)]
-pub struct Sigmaos_buildbtw {
+pub struct Buildbtw {
     name: String,
 }
 
-impl Sigmaos_buildbtw {
+impl Buildbtw {
     /// Create a new component instance. Fails fast on empty names.
-    pub fn new(name: impl Into<String>) -> Result<Self, Sigmaos_buildbtwError> {
+    pub fn new(name: impl Into<String>) -> Result<Self, BuildbtwError> {
         let name = name.into();
         if name.trim().is_empty() {
-            return Err(Sigmaos_buildbtwError::InvalidInput("name must not be empty".into()));
+            return Err(BuildbtwError::InvalidInput("name must not be empty".into()));
         }
         Ok(Self { name })
     }
@@ -47,9 +47,9 @@ impl Sigmaos_buildbtw {
     }
 
     /// Perform the component's primary action. Returns a deterministic result.
-    pub fn run(&self) -> Result<String, Sigmaos_buildbtwError> {
+    pub fn run(&self) -> Result<String, BuildbtwError> {
         if self.name.is_empty() {
-            return Err(Sigmaos_buildbtwError::InvalidState);
+            return Err(BuildbtwError::InvalidState);
         }
         Ok(format!("{}: ok", self.name))
     }
@@ -62,18 +62,18 @@ mod tests {
     #[test]
     fn new_rejects_empty_name() {
         // Arrange / Act / Assert
-        assert!(matches!(Sigmaos_buildbtw::new("  "), Err(Sigmaos_buildbtwError::InvalidInput(_))));
+        assert!(matches!(Buildbtw::new("  "), Err(BuildbtwError::InvalidInput(_))));
     }
 
     #[test]
     fn run_returns_deterministic_result() {
-        let c = Sigmaos_buildbtw::new("test").unwrap();
+        let c = Buildbtw::new("test").unwrap();
         assert_eq!(c.run().unwrap(), "test: ok");
     }
 
     #[test]
     fn name_is_accessible() {
-        let c = Sigmaos_buildbtw::new("abc").unwrap();
+        let c = Buildbtw::new("abc").unwrap();
         assert_eq!(c.name(), "abc");
     }
 }
