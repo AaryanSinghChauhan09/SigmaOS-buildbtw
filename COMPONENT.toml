@@ -3,7 +3,7 @@ name = "SigmaOS-buildbtw"
 tier = 2
 stability = "scaffold"
 language = "rust"
-description = "buildbtw component"
+description = "SigmaOS buildbtw component (Arch Linux inspired)"
 upstream = []
 
 [contract]
