@@ -1,8 +1,15 @@
 [package]
-name = "sigmaos-buildbtw"
+name = "SigmaOS-buildbtw"
 version = "0.1.0"
 edition = "2021"
-license = "MIT"
-description = "Package build orchestration service — SigmaOS component inspired by Arch Linux infrastructure."
+license = "Apache-2.0"
+description = "SigmaOS buildbtw component"
+
+[lib]
+name = "buildbtw"
+path = "src/lib.rs"
 
 [dependencies]
+thiserror = "1"
+
+[dev-dependencies]
