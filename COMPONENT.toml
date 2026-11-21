@@ -1,16 +1,16 @@
 [component]
 name = "SigmaOS-buildbtw"
 tier = 2
-stability = "scaffold"
+stability = "beta"
 language = "rust"
 description = "SigmaOS buildbtw component (Arch Linux inspired)"
-upstream = []
+upstream = ["https://github.com/archlinux/buildbtw"]
 
 [contract]
-provides = ["component"]
+provides = ["build-job-model", "job-queue", "build-scheduler"]
 depends_on = []
 
 [maturity]
 status = "Implemented"
-test_evidence = "Compiles and passes AAA unit tests"
+test_evidence = "cargo test: 9 tests pass (state machine, queue scheduling, build commands)"
 next_milestone = "Hardware and runtime integration"
